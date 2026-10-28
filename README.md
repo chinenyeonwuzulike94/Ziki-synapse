@@ -1,4 +1,4 @@
-# Ziki-whimsical
+# Ziki-whimsical (Ziki-whimsy)
 
 > **HNG15 Individual Task — Whimsical Design Deliverable**  
 > Direct, pixel-accurate implementation of [Ziki.dev's](https://ziki.dev/) Agent Settings & Permissions page (`https://ziki.dev/settings/agents`) enhanced with a **Whimsical Living Synapse** inspired by **Lusion**, **Weavesilk**, and **Puture**.
@@ -6,7 +6,7 @@
 ---
 
 ## 🚀 Live Demo & Repository
-- **Live Deployment:** [https://ziki-synapse.vercel.app](https://ziki-synapse.vercel.app)
+- **Live Deployment:** [https://ziki-whimsy.vercel.app](https://ziki-whimsy.vercel.app)
 - **GitHub Repository:** [https://github.com/chinenyeonwuzulike94/Ziki-synapse](https://github.com/chinenyeonwuzulike94/Ziki-synapse)
 - **Target Product:** [Ziki (https://ziki.dev)](https://ziki.dev/)
 - **Target Exact Page:** [https://ziki.dev/settings/agents](https://ziki.dev/settings/agents)
@@ -34,30 +34,23 @@
   - The comprehensive `LEVELS` reference card at the bottom.
 
 ### Step 4: The Whimsical Redesign Transformation
-1. **Living Liquid 3D Core (Lusion style)**:
-   - A multi-frequency organic fluid sphere embedded directly on the agent card that breathes, pulses, and undulates with chromatic iridescence.
+1. **Hero Placement of the Whimsical Core**:
+   - The very first thing someone sees when entering `My agents` is the living, breathing 3D fluid agent core right next to the title and copy.
+2. **Living Liquid 3D Core (Lusion style)**:
+   - A multi-frequency organic fluid sphere that breathes, pulses, and undulates with chromatic iridescence.
    - Click and drag to stretch the agent like jelly; release to watch it bounce back with spring physics.
    - Poking the agent creates fluid shockwaves and ripple rings across the surface.
-2. **Generative Silk Ribbon Tethers (Weavesilk style)**:
+3. **Generative Silk Ribbon Tethers (Weavesilk style)**:
    - Moving your cursor casts harmonic, glowing light ribbons connecting your pointer directly to the agent's core, symbolizing the human-to-AI neural handshake.
-3. **Tactile Task Snacks (Puture style)**:
+4. **Tactile Task Snacks (Puture style)**:
    - Floating bouncy task pills (`[Fix Memory Leak]`, `[Authorize PR #402]`, `[Run Test Suite]`).
    - Click or drag tasks directly into the agent core: the agent gulps them down, flashes with energy particles, and awards `+100 XP`!
-4. **Interactive Responsiveness**:
-   - Every button is 100% interactive: `Create agent` opens a creation modal, `Activity & Approvals` and `Agent audit log` open live logs, `Copy` copies the key with confetti, and `Regenerate key` updates the key with celebratory audio!
-5. **Authentic Dark & Light Mode**:
+5. **Playful Button Animations**:
+   - Rubber jelly wobble on hover and active clicks (`btn-jelly`).
+   - Iridescent shimmer sheen on primary buttons (`btn-shimmer`).
+   - Real-time acoustic pop and chime feedback.
+6. **Authentic Dark & Light Mode**:
    - Prominent toggle in the top bar to switch between crisp Light Mode (matching the screenshot) and sleek Dark Mode.
-6. **Web Audio Synthesizer**:
-   - Real-time synthesized chimes, pops, whooshes, and victory chords (with a mute toggle).
 
 ### Step 5: Deployed on Vercel
-- Hosted on Vercel with automatic continuous deployments from GitHub.
-
----
-
-## 🛠️ Tech Stack
-- **Framework:** React 18 + Vite
-- **Styling:** Tailwind CSS + Glassmorphism Tokens
-- **Graphics & Physics:** HTML5 Canvas + Sinusoidal Noise Shaders + Harmonic Ribbon Math
-- **Audio:** Web Audio API Synthesizer (asset-free)
-- **Icons & Effects:** Lucide React, Canvas Confetti
+- Hosted on Vercel at [https://ziki-whimsy.vercel.app](https://ziki-whimsy.vercel.app).
