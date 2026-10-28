@@ -1,36 +1,41 @@
-# Ziki Whimsical — Whimsical Redesign of Ziki Agent Settings
+# Ziki-whimsical
 
 > **HNG15 Individual Task — Whimsical Design Deliverable**  
-> Redesigning [Ziki.dev's](https://ziki.dev/) Agent Settings & Permissions page (`https://ziki.dev/settings/agents`) into a living, tactile, sensory experience inspired by **Lusion**, **Weavesilk**, and **Puture**, preserving Ziki's authentic design shell.
+> Direct, pixel-accurate implementation of [Ziki.dev's](https://ziki.dev/) Agent Settings & Permissions page (`https://ziki.dev/settings/agents`) enhanced with a **Whimsical Living Synapse** inspired by **Lusion**, **Weavesilk**, and **Puture**.
 
 ---
 
-## 🚀 Live Demo & Links
+## 🚀 Live Demo & Repository
 - **Live Deployment:** [https://ziki-synapse.vercel.app](https://ziki-synapse.vercel.app)
 - **GitHub Repository:** [https://github.com/chinenyeonwuzulike94/Ziki-synapse](https://github.com/chinenyeonwuzulike94/Ziki-synapse)
 - **Target Product:** [Ziki (https://ziki.dev)](https://ziki.dev/)
-- **Target Page & Element:** [Ziki Agent Settings & Permissions (https://ziki.dev/settings/agents)](https://ziki.dev/settings/agents)
+- **Target Exact Page:** [https://ziki.dev/settings/agents](https://ziki.dev/settings/agents)
 
 ---
 
-## 🎨 The 5-Step Whimsical Design Breakdown
+## 🎨 The 5-Step Whimsical Execution Breakdown
 
 ### Step 1: Selected Product
-- **Product:** **Ziki** (`https://ziki.dev/`)  
-- Ziki is a collaborative software delivery platform where humans and AI agents work together to discover issues, bid, deliver PRs, and verify tests under human oversight.
+- **Product:** **Ziki** (`https://ziki.dev/`) — Collaborative software delivery platform with human-led, AI-assisted workflows.
 
-### Step 2: Whimsical Design References
+### Step 2: Whimsical References
 1. **[Lusion.co](https://lusion.co/)**: Organic 3D fluid physics, squishy liquid materials, and mouse-reactive particle fields that feel alive and responsive.
 2. **[Weavesilk.com](https://weavesilk.com/)**: Glowing generative light ribbons that stream dynamically from user touch/cursor, visualizing energetic neural connections.
 3. **[Puture.co.kr](https://puture.co.kr/en/)**: Playful bouncy physics, tactile draggable tokens, sound effects, and joyful micro-interactions.
 
 ### Step 3: Decided Element on the Product
-- **Target Page:** `https://ziki.dev/settings/agents` (Agent Settings & Autonomy Controls).
-- **Core Concept:** Preserve the authentic Ziki sidebar, topbar, and registered agents table, while transforming the static agent configuration into an interactive **Living Agent Synapse**.
+- **Specific Screen:** `https://ziki.dev/settings/agents` (Agent Settings & Autonomy Controls).
+- Cloned directly from the live, authenticated screenshots:
+  - Top header with Ziki mark, `Zedu ∨`, `Product`, `Marketing`, `Security`, `Agents ∨`, user pill `Chinenye Onwuzulike`, `2056.4 pts`, and notifications.
+  - Heading: `My agents` with full explanatory copy, `Activity & Approvals`, `Agent audit log`, and `Create agent`.
+  - Summary cards: `ACTIVE AGENTS 2 / 5` with progress bar, and `ROLES COVERED` with role filter pills.
+  - Search & filter bar: `Search agents` and role pills (`All`, `Contributor`, `Triager`, `Reviewer`).
+  - Active agent cards: `Chinenye (Antigravity)` with role dropdowns, scope selectors, keys, `Copy`, `Regenerate key`, `Revoke`, `Delete`, and `Preferred areas`.
+  - The comprehensive `LEVELS` reference card at the bottom.
 
-### Step 4: The Whimsical Implementation Details
+### Step 4: The Whimsical Redesign Transformation
 1. **Living Liquid 3D Core (Lusion style)**:
-   - A multi-frequency organic fluid sphere that breathes, pulses, and undulates with chromatic iridescence.
+   - A multi-frequency organic fluid sphere embedded directly on the agent card that breathes, pulses, and undulates with chromatic iridescence.
    - Click and drag to stretch the agent like jelly; release to watch it bounce back with spring physics.
    - Poking the agent creates fluid shockwaves and ripple rings across the surface.
 2. **Generative Silk Ribbon Tethers (Weavesilk style)**:
@@ -38,12 +43,10 @@
 3. **Tactile Task Snacks (Puture style)**:
    - Floating bouncy task pills (`[Fix Memory Leak]`, `[Authorize PR #402]`, `[Run Test Suite]`).
    - Click or drag tasks directly into the agent core: the agent gulps them down, flashes with energy particles, and awards `+100 XP`!
-4. **Authentic Agent Controls**:
-   - Autonomy modes: *Restricted, Co-Pilot, Autonomous*.
-   - Models: *Claude 3.5 Sonnet, Gemini 1.5 Pro, GPT-4o, DeepSeek-V3*.
-   - Sensory permission matrix with tactile toggles.
+4. **Interactive Responsiveness**:
+   - Every button is 100% interactive: `Create agent` opens a creation modal, `Activity & Approvals` and `Agent audit log` open live logs, `Copy` copies the key with confetti, and `Regenerate key` updates the key with celebratory audio!
 5. **Authentic Dark & Light Mode**:
-   - Supports both dark and light themes matching Ziki's exact palette.
+   - Prominent toggle in the top bar to switch between crisp Light Mode (matching the screenshot) and sleek Dark Mode.
 6. **Web Audio Synthesizer**:
    - Real-time synthesized chimes, pops, whooshes, and victory chords (with a mute toggle).
 
