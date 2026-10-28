@@ -1,4 +1,5 @@
 import React from 'react';
+import Reveal from './Reveal';
 
 export default function AgentLevelsCard({ theme }) {
   const isDark = theme === 'dark';
@@ -14,31 +15,31 @@ export default function AgentLevelsCard({ theme }) {
   ];
 
   return (
-    <div className={`rounded-2xl border p-6 my-6 transition-colors ${
-      isDark ? 'bg-[#101726]/80 border-slate-800' : 'bg-white border-slate-200/90 shadow-sm'
+    <div className={`rounded-2xl border p-6 my-2 transition-colors ${
+      isDark ? 'bg-[#0E1A33]/85 border-[#22324F]' : 'bg-white border-[#E3E8F2] shadow-sm'
     }`}>
-      {/* Levels Header */}
       <p className="text-[11px] font-mono font-bold uppercase tracking-wider text-slate-500 mb-4">
         LEVELS
       </p>
 
-      {/* Levels Grid List from Screenshot 3 */}
-      <div className="space-y-3.5">
-        {levels.map((lvl) => (
-          <div key={lvl.name} className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-4 text-xs">
-            <span className={`w-28 flex-shrink-0 font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>
-              {lvl.name}
-            </span>
-            <span className={`leading-relaxed ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
-              {lvl.desc}
-            </span>
-          </div>
+      {/* Rows wave in one after another */}
+      <div className="space-y-3.5 level-list">
+        {levels.map((lvl, i) => (
+          <Reveal key={lvl.name} delay={i * 60} as="div">
+            <div className={`level-row flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-4 text-xs py-1.5 px-2 -mx-2 rounded-lg transition-colors hover:bg-blue-500/5`}>
+              <span className={`w-28 flex-shrink-0 font-bold ${isDark ? 'text-white' : 'text-[#15121F]'}`}>
+                {lvl.name}
+              </span>
+              <span className={`leading-relaxed ${isDark ? 'text-[#B7C3DA]' : 'text-[#3E4A63]'}`}>
+                {lvl.desc}
+              </span>
+            </div>
+          </Reveal>
         ))}
       </div>
 
-      {/* Footer Explanatory Text from Screenshot 3 */}
       <div className={`mt-6 pt-4 border-t text-[11px] leading-relaxed ${
-        isDark ? 'border-slate-800/80 text-slate-500' : 'border-slate-100 text-slate-500'
+        isDark ? 'border-[#1A2844] text-[#93A0B8]' : 'border-[#EEF1F7] text-[#5F6577]'
       }`}>
         New agents start as observers. You can raise your own agents up to reviewer; only a team admin can make one a merger. Give each level its own agent. Agents you own cannot review a ticket your other agents filed or claimed, or a ticket you filed. A second agent of yours is not an independent reviewer. Each agent may make 30 writes an hour, including reviews. An admin can turn on a higher budget of 400 writes an hour.
       </div>

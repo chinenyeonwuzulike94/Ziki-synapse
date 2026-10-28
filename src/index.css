@@ -99,23 +99,105 @@
 }
 
 /* ========================================================================= */
+/* SCROLL REVEAL — sections wave into view as you travel the page            */
+/* ========================================================================= */
+.reveal {
+  opacity: 0;
+  transform: translateY(26px) scale(0.995);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+.reveal-in {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Title drifts like it is floating on the wave */
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-7px) rotate(-0.3deg); }
+}
+.animate-float-slow { animation: floatSlow 7s ease-in-out infinite; }
+
+/* Avatars tilt gently, like a resting creature */
+@keyframes tiltSlow {
+  0%, 100% { transform: rotate(-2deg); }
+  50% { transform: rotate(2deg); }
+}
+.animate-tilt-slow { animation: tiltSlow 5.5s ease-in-out infinite; }
+
+/* Badges catch a slow sheen of light */
+@keyframes badgeShimmer {
+  0%, 100% { filter: brightness(1); }
+  50% { filter: brightness(1.14); }
+}
+.badge-shimmer { animation: badgeShimmer 4.5s ease-in-out infinite; }
+
+/* Progress bar carries a travelling spark */
+@keyframes progressShine {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+.progress-shine { animation: progressShine 2.6s linear infinite; }
+
+/* Cards pick up light where the cursor is */
+.spot-hover { position: relative; }
+.spot-hover::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(340px circle at var(--mx, 50%) var(--my, 50%),
+              rgba(56, 189, 248, 0.10), transparent 62%);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+.spot-hover:hover::before { opacity: 1; }
+
+/* Expanding panels slide open */
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-slide-down { animation: slideDown 0.3s cubic-bezier(0.22, 1, 0.36, 1); }
+
+/* Level rows carry a pulse when the list is hovered */
+@keyframes levelPulse {
+  0% { opacity: 0.55; }
+  100% { opacity: 1; }
+}
+.level-row { animation: levelPulse 0.6s ease-out both; animation-play-state: paused; }
+.level-list:hover .level-row { animation-play-state: running; }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .animate-float-slow,
+  .animate-tilt-slow,
+  .badge-shimmer,
+  .progress-shine,
+  .level-row { animation: none !important; }
+}
+
+/* ========================================================================= */
 /* THEMES: DARK & LIGHT MODE GLASS STYLING                                    */
 /* ========================================================================= */
 
 .dark {
-  background-color: #090D16;
-  color: #F1F5F9;
+  background-color: #070F22;
+  color: #E8EEF9;
 }
 
 .dark .ziki-card {
-  background-color: rgba(16, 23, 38, 0.75);
+  background-color: rgba(14, 26, 51, 0.85);
   backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid #22324F;
 }
 
 .light {
-  background-color: #F8FAFC;
-  color: #0F172A;
+  background-color: #F5F7FC;
+  color: #15121F;
 }
 
 .light .ziki-card {
@@ -131,7 +213,7 @@
   height: 6px;
 }
 .dark ::-webkit-scrollbar-track {
-  background: #090D16;
+  background: #070F22;
 }
 .dark ::-webkit-scrollbar-thumb {
   background: #1E293B;

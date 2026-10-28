@@ -6,7 +6,6 @@ import {
   Moon, 
   Bell, 
   ChevronDown, 
-  Sparkles, 
   Bot, 
   Trophy, 
   Compass, 
@@ -16,11 +15,10 @@ import {
 import { sounds } from '../utils/audio';
 
 export default function ZikiNavBar({ 
-  theme, 
-  onToggleTheme, 
-  soundEnabled, 
-  onToggleSound, 
-  onOpenGuide 
+  theme,
+  onToggleTheme,
+  soundEnabled,
+  onToggleSound
 }) {
   const isDark = theme === 'dark';
 
@@ -37,7 +35,7 @@ export default function ZikiNavBar({
           </svg>
           <div className="flex items-center gap-1.5">
             <span className={`font-bold text-base tracking-tight ${isDark ? 'text-white' : 'text-slate-900'}`}>
-              ziki-whimsical
+              ziki
             </span>
           </div>
         </a>
@@ -65,17 +63,8 @@ export default function ZikiNavBar({
         </nav>
       </div>
 
-      {/* Right Actions from Screenshot 1 */}
+      {/* Right Actions */}
       <div className="flex items-center gap-3">
-        {/* Whimsical Spec Guide Button */}
-        <button
-          onClick={onOpenGuide}
-          className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-blue-500/10 text-blue-500 border border-blue-500/20 hover:bg-blue-500/20 transition"
-        >
-          <Sparkles className="w-3.5 h-3.5 text-blue-500" />
-          <span>Whimsical Guide</span>
-        </button>
-
         {/* Sound Toggle */}
         <button
           onClick={onToggleSound}
