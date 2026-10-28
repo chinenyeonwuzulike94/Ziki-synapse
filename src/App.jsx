@@ -4,19 +4,37 @@ import ZikiNavBar from './components/ZikiNavBar';
 import AgentSummaryCards from './components/AgentSummaryCards';
 import AgentCardItem from './components/AgentCardItem';
 import AgentLevelsCard from './components/AgentLevelsCard';
+import AgentCanvas from './components/AgentCanvas';
+import TaskSnacks from './components/TaskSnacks';
 import CreateAgentModal from './components/CreateAgentModal';
 import ActivityModal from './components/ActivityModal';
 import ReferenceModal from './components/ReferenceModal';
 import { sounds } from './utils/audio';
-import { Search, Sparkles, Check } from 'lucide-react';
+import { 
+  Search, 
+  Sparkles, 
+  Check, 
+  Bot, 
+  Plus, 
+  Activity, 
+  FileText,
+  Zap,
+  ArrowRight
+} from 'lucide-react';
 
 export default function App() {
-  const [theme, setTheme] = useState('light'); // Default to light mode as seen in user's screenshot!
+  const [theme, setTheme] = useState('light'); // Default to light mode as seen in user's screenshot
   const [soundEnabled, setSoundEnabled] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedFilter, setSelectedFilter] = useState('All');
   const [activeRole, setActiveRole] = useState('Reviewer');
   const [toastMessage, setToastMessage] = useState(null);
+
+  // Whimsical Synapse State at the top of the page
+  const [synapseAgentName, setSynapseAgentName] = useState('Chinenye (Antigravity)');
+  const [synapseMode, setSynapseMode] = useState('copilot'); // 'restricted' | 'copilot' | 'autonomous'
+  const [taskCount, setTaskCount] = useState(14);
+  const [feedingTask, setFeedingTask] = useState(null);
 
   // Modals state
   const [isGuideOpen, setIsGuideOpen] = useState(false);
@@ -35,7 +53,7 @@ export default function App() {
       fullKey: 'z1k1_5-U6pR99xLaQm28vT019kLq',
       scope: 'Ziki',
       avatarColor: 'bg-[#9333EA]', // Purple from Screenshot 2
-      initialOpen: true, // Expand the whimsical synapse on this agent!
+      initialOpen: false,
       initialTasks: 14,
     },
     {
@@ -122,6 +140,15 @@ export default function App() {
     showToast(`Agent "${newAg.name}" successfully created!`);
   };
 
+  const handleFeedSynapseTask = (task) => {
+    setFeedingTask(task);
+    setTaskCount((prev) => prev + 1);
+  };
+
+  const handleTaskEaten = () => {
+    setFeedingTask(null);
+  };
+
   // Filter logic
   const filteredAgents = agents.filter((ag) => {
     const matchesSearch =
@@ -138,10 +165,10 @@ export default function App() {
   const isDark = theme === 'dark';
 
   return (
-    <div className={`min-h-screen transition-colors duration-300 font-sans ${
+    <div className={`min-h-screen flex flex-col font-sans transition-colors duration-300 ${
       isDark ? 'dark bg-[#090D16] text-slate-100' : 'light bg-[#F8FAFC] text-slate-900'
     }`}>
-      {/* 1. Authentic Top Navigation from Screenshot 1 */}
+      {/* 1. TOP NAVBAR from Screenshot 1 */}
       <ZikiNavBar
         theme={theme}
         onToggleTheme={toggleTheme}
@@ -150,77 +177,132 @@ export default function App() {
         onOpenGuide={() => setIsGuideOpen(true)}
       />
 
-      {/* 2. Main Page Container */}
-      <main className="max-w-6xl mx-auto px-4 sm:px-8 py-8">
+      {/* 2. MAIN CONTAINER */}
+      <main className="max-w-6xl w-full mx-auto px-4 sm:px-8 py-8 flex flex-col gap-6">
         {/* Back Link from Screenshot 1 */}
         <a
           href="https://ziki.dev/settings"
-          className="text-xs font-semibold text-blue-600 dark:text-blue-400 hover:underline inline-block mb-3"
+          className="text-xs font-semibold text-blue-600 dark:text-blue-400 hover:underline inline-block self-start"
         >
           &larr; Back to settings
         </a>
 
-        {/* Title & Header Actions Row from Screenshot 1 */}
-        <div className="flex flex-col md:flex-row md:items-start justify-between gap-6 mb-4">
-          <div className="flex-1">
-            <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight mb-2">
-              My agents
-            </h1>
+        {/* ========================================================================= */}
+        {/* 3. HERO SECTION: "MY AGENTS" + WHIMSICAL LIVING SYNAPSE FRONT & CENTER!  */}
+        {/* (The very first thing someone sees when entering this page!)            */}
+        {/* ========================================================================= */}
+        <section className={`rounded-3xl border p-6 sm:p-8 shadow-xl transition-all ${
+          isDark 
+            ? 'bg-[#101726]/85 border-slate-800 shadow-black/50' 
+            : 'bg-gradient-to-br from-blue-50/60 via-white to-indigo-50/40 border-blue-200/80 shadow-blue-500/5'
+        }`}>
+          {/* 2-Column Split: Text & Actions on Left, 3D Living Organism on Right! */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            {/* Left 7 Columns: Heading, Text & Playfully Animated Buttons */}
+            <div className="lg:col-span-7 flex flex-col gap-4">
+              <div className="flex items-center gap-2">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-bold bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/25">
+                  <Sparkles className="w-3.5 h-3.5 animate-spin text-blue-500" style={{ animationDuration: '6s' }} />
+                  <span>Whimsical Living Synapse</span>
+                </span>
+                <span className="text-xs text-slate-400">•</span>
+                <span className="text-xs text-slate-500 font-mono">ziki.dev/settings/agents</span>
+              </div>
 
-            {/* Description Paragraph 1 from Screenshot 1 */}
-            <p className={`text-xs sm:text-sm font-medium mb-3 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
-              Each agent has its own key. Copy sends that key and this site to that agent only.
-            </p>
+              <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight">
+                My agents
+              </h1>
 
-            {/* Description Paragraph 2 from Screenshot 1 */}
-            <p className={`text-xs leading-relaxed max-w-4xl ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
-              Use a separate agent for each specialist role when needed: observation is universal; contributor files, claims and delivers work; triager checks duplicates; reviewer validates reports and tests fixes. Dispatcher focuses exclusively on assigning work. Merger reviews and accepts fixes to mark them ready to merge. Admin merger executes Git merges. Multiple agents of one owner are not independent reviewers. You can keep 5 active agents in this workspace. Agents you own cannot review a ticket your other agents filed or claimed, or a ticket you filed. A second agent of yours is not an independent reviewer.
-            </p>
+              {/* Exact Description Paragraph 1 from Screenshot 1 */}
+              <p className={`text-sm font-semibold leading-relaxed ${isDark ? 'text-slate-200' : 'text-slate-800'}`}>
+                Each agent has its own key. Copy sends that key and this site to that agent only.
+              </p>
+
+              {/* Exact Description Paragraph 2 from Screenshot 1 */}
+              <p className={`text-xs leading-relaxed ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
+                Use a separate agent for each specialist role when needed: observation is universal; contributor files, claims and delivers work; triager checks duplicates; reviewer validates reports and tests fixes. Dispatcher focuses exclusively on assigning work. Merger reviews and accepts fixes to mark them ready to merge. Admin merger executes Git merges. Multiple agents of one owner are not independent reviewers. You can keep 5 active agents in this workspace. Agents you own cannot review a ticket your other agents filed or claimed, or a ticket you filed. A second agent of yours is not an independent reviewer.
+              </p>
+
+              {/* PLAYFUL WHIMSICAL ANIMATED BUTTONS (With Jelly Bounces, Shimmer & Sounds) */}
+              <div className="flex items-center gap-3 pt-2 flex-wrap">
+                {/* 1. Create Agent: Jelly Bounce + Shimmer + Glow */}
+                <button
+                  onClick={() => {
+                    sounds.playPop();
+                    setIsCreateOpen(true);
+                  }}
+                  className="btn-jelly btn-shimmer btn-glow px-6 py-2.5 rounded-full text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-600/30 transition cursor-pointer flex items-center gap-2"
+                >
+                  <Plus className="w-4 h-4" />
+                  <span>Create agent</span>
+                </button>
+
+                {/* 2. Activity & Approvals: Jelly Bounce + Tactile Pop */}
+                <button
+                  onClick={() => {
+                    sounds.playPop();
+                    setActivityModalTitle('Activity & Approvals');
+                  }}
+                  className={`btn-jelly px-4 py-2.5 rounded-full text-xs font-semibold border transition cursor-pointer flex items-center gap-2 ${
+                    isDark 
+                      ? 'bg-slate-900 border-slate-700 text-slate-200 hover:bg-slate-800' 
+                      : 'bg-white border-slate-300 text-slate-700 hover:bg-slate-50 shadow-sm'
+                  }`}
+                >
+                  <Activity className="w-3.5 h-3.5 text-blue-500" />
+                  <span>Activity & Approvals</span>
+                </button>
+
+                {/* 3. Agent Audit Log: Jelly Bounce + Tactile Pop */}
+                <button
+                  onClick={() => {
+                    sounds.playPop();
+                    setActivityModalTitle('Agent Audit Log');
+                  }}
+                  className={`btn-jelly px-4 py-2.5 rounded-full text-xs font-semibold border transition cursor-pointer flex items-center gap-2 ${
+                    isDark 
+                      ? 'bg-slate-900 border-slate-700 text-slate-200 hover:bg-slate-800' 
+                      : 'bg-white border-slate-300 text-slate-700 hover:bg-slate-50 shadow-sm'
+                  }`}
+                >
+                  <FileText className="w-3.5 h-3.5 text-blue-500" />
+                  <span>Agent audit log</span>
+                </button>
+              </div>
+
+              {/* Quick Status Pill Bar */}
+              <div className="flex items-center gap-3 pt-2 text-[11px] text-slate-500 font-mono">
+                <span className="flex items-center gap-1.5 text-emerald-500 font-semibold">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
+                  Connected: Chinenye (Antigravity)
+                </span>
+                <span>•</span>
+                <span>Role: Reviewer</span>
+                <span>•</span>
+                <span className="text-blue-500 font-semibold">{taskCount} tasks verified</span>
+              </div>
+            </div>
+
+            {/* Right 5 Columns: 3D Living Organism (Lusion + Weavesilk) */}
+            <div className="lg:col-span-5 h-[340px] sm:h-[380px] w-full rounded-2xl overflow-hidden shadow-inner relative flex items-center justify-center">
+              <AgentCanvas
+                theme={theme}
+                agentMode={synapseMode}
+                agentName={synapseAgentName}
+                taskAbsorbedCount={taskCount}
+                feedingTask={feedingTask}
+                onTaskEaten={handleTaskEaten}
+              />
+            </div>
           </div>
 
-          {/* Action Buttons Row from Screenshot 1 */}
-          <div className="flex items-center gap-2.5 flex-wrap flex-shrink-0">
-            <button
-              onClick={() => {
-                sounds.playPop();
-                setActivityModalTitle('Activity & Approvals');
-              }}
-              className={`px-4 py-2 rounded-full text-xs font-semibold border transition active:scale-95 cursor-pointer ${
-                isDark 
-                  ? 'bg-slate-900 border-slate-700 text-slate-200 hover:bg-slate-800' 
-                  : 'bg-white border-slate-200 text-slate-700 hover:bg-slate-50 shadow-sm'
-              }`}
-            >
-              Activity & Approvals
-            </button>
-
-            <button
-              onClick={() => {
-                sounds.playPop();
-                setActivityModalTitle('Agent audit log');
-              }}
-              className={`px-4 py-2 rounded-full text-xs font-semibold border transition active:scale-95 cursor-pointer ${
-                isDark 
-                  ? 'bg-slate-900 border-slate-700 text-slate-200 hover:bg-slate-800' 
-                  : 'bg-white border-slate-200 text-slate-700 hover:bg-slate-50 shadow-sm'
-              }`}
-            >
-              Agent audit log
-            </button>
-
-            <button
-              onClick={() => {
-                sounds.playPop();
-                setIsCreateOpen(true);
-              }}
-              className="px-5 py-2 rounded-full text-xs font-semibold bg-blue-600 hover:bg-blue-500 text-white shadow-md shadow-blue-600/25 transition active:scale-95 cursor-pointer"
-            >
-              Create agent
-            </button>
+          {/* Draggable Puture Task Snacks Bar directly under the Hero! */}
+          <div className="mt-6 pt-4 border-t border-slate-200 dark:border-slate-800/80">
+            <TaskSnacks theme={theme} onFeedTask={handleFeedSynapseTask} />
           </div>
-        </div>
+        </section>
 
-        {/* 3. Summary Cards from Screenshot 1 */}
+        {/* 4. SUMMARY CARDS from Screenshot 1 */}
         <AgentSummaryCards
           theme={theme}
           activeRole={activeRole}
@@ -232,8 +314,8 @@ export default function App() {
           maxCount={5}
         />
 
-        {/* 4. Search & Filter Bar from Screenshot 1 */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 my-6">
+        {/* 5. SEARCH & FILTER BAR from Screenshot 1 */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 my-2">
           {/* Rounded Pill Search Input */}
           <div className={`relative max-w-sm w-full rounded-full border px-4 py-2 text-xs flex items-center gap-2 ${
             isDark ? 'bg-slate-900 border-slate-800 text-white' : 'bg-white border-slate-200 text-slate-900 shadow-sm'
@@ -248,7 +330,7 @@ export default function App() {
             />
           </div>
 
-          {/* Filter Pills from Screenshot 1 */}
+          {/* Filter Pills from Screenshot 1 with Jelly Hover */}
           <div className="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0">
             {['All', 'Contributor', 'Triager', 'Reviewer'].map((pill) => {
               const isSelected = selectedFilter === pill;
@@ -259,7 +341,7 @@ export default function App() {
                     sounds.playPop();
                     setSelectedFilter(pill);
                   }}
-                  className={`px-3.5 py-1 rounded-full text-xs font-semibold transition cursor-pointer ${
+                  className={`btn-jelly px-4 py-1.5 rounded-full text-xs font-semibold transition cursor-pointer ${
                     isSelected
                       ? (isDark ? 'bg-slate-800 text-white font-bold' : 'bg-slate-900 text-white font-bold')
                       : (isDark ? 'text-slate-400 hover:text-white' : 'text-slate-600 hover:text-slate-900')
@@ -272,7 +354,7 @@ export default function App() {
           </div>
         </div>
 
-        {/* 5. Agent Cards from Screenshot 2 (with Whimsical Living Synapse) */}
+        {/* 6. AGENT CARDS from Screenshot 2 */}
         <div className="space-y-4">
           {filteredAgents.length === 0 ? (
             <div className={`p-12 text-center rounded-2xl border text-xs ${
@@ -295,7 +377,7 @@ export default function App() {
           )}
         </div>
 
-        {/* 6. Levels Card from Screenshot 3 */}
+        {/* 7. LEVELS REFERENCE CARD from Screenshot 3 */}
         <AgentLevelsCard theme={theme} />
       </main>
 
