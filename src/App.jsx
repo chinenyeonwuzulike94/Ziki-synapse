@@ -14,12 +14,9 @@ import {
   Search, 
   Sparkles, 
   Check, 
-  Bot, 
   Plus, 
   Activity, 
-  FileText,
-  Zap,
-  ArrowRight
+  FileText 
 } from 'lucide-react';
 
 export default function App() {
@@ -30,7 +27,7 @@ export default function App() {
   const [activeRole, setActiveRole] = useState('Reviewer');
   const [toastMessage, setToastMessage] = useState(null);
 
-  // Whimsical Synapse State at the top of the page
+  // Whimsical Synapse State
   const [synapseAgentName, setSynapseAgentName] = useState('Chinenye (Antigravity)');
   const [synapseMode, setSynapseMode] = useState('copilot'); // 'restricted' | 'copilot' | 'autonomous'
   const [taskCount, setTaskCount] = useState(14);
@@ -41,7 +38,7 @@ export default function App() {
   const [isCreateOpen, setIsCreateOpen] = useState(false);
   const [activityModalTitle, setActivityModalTitle] = useState(null);
 
-  // Agents list initialized directly from user's Screenshot 2!
+  // Agents list initialized directly from user's Screenshot 2
   const [agents, setAgents] = useState([
     {
       id: 'ag-1',
@@ -52,7 +49,7 @@ export default function App() {
       key: 'z1k1_5-U6pR...',
       fullKey: 'z1k1_5-U6pR99xLaQm28vT019kLq',
       scope: 'Ziki',
-      avatarColor: 'bg-[#9333EA]', // Purple from Screenshot 2
+      avatarColor: 'bg-[#9333EA]',
       initialOpen: false,
       initialTasks: 14,
     },
@@ -65,7 +62,7 @@ export default function App() {
       key: 'z1k1_6Np1VD...',
       fullKey: 'z1k1_6Np1VD48jKm91xZa021pWb',
       scope: 'Ziki',
-      avatarColor: 'bg-[#1E3A8A]', // Dark blue from Screenshot 2
+      avatarColor: 'bg-[#1E3A8A]',
       initialOpen: false,
       initialTasks: 8,
     },
@@ -188,116 +185,109 @@ export default function App() {
         </a>
 
         {/* ========================================================================= */}
-        {/* 3. HERO SECTION: "MY AGENTS" + WHIMSICAL LIVING SYNAPSE FRONT & CENTER!  */}
-        {/* (The very first thing someone sees when entering this page!)            */}
+        {/* 3. HERO SECTION: UNBOUNDED WHIMSICAL LIVING SYNAPSE                       */}
+        {/* (No square box! The agent can be dragged freely across the writeup!)     */}
         {/* ========================================================================= */}
-        <section className={`rounded-3xl border p-6 sm:p-8 shadow-xl transition-all ${
+        <section className={`relative rounded-3xl border shadow-xl transition-all p-6 sm:p-10 overflow-hidden min-h-[460px] flex flex-col justify-between ${
           isDark 
             ? 'bg-[#101726]/85 border-slate-800 shadow-black/50' 
-            : 'bg-gradient-to-br from-blue-50/60 via-white to-indigo-50/40 border-blue-200/80 shadow-blue-500/5'
+            : 'bg-gradient-to-br from-blue-50/70 via-white to-indigo-50/50 border-blue-200/80 shadow-blue-500/5'
         }`}>
-          {/* 2-Column Split: Text & Actions on Left, 3D Living Organism on Right! */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            {/* Left 7 Columns: Heading, Text & Playfully Animated Buttons */}
-            <div className="lg:col-span-7 flex flex-col gap-4">
-              <div className="flex items-center gap-2">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-bold bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/25">
-                  <Sparkles className="w-3.5 h-3.5 animate-spin text-blue-500" style={{ animationDuration: '6s' }} />
-                  <span>Whimsical Living Synapse</span>
-                </span>
-                <span className="text-xs text-slate-400">•</span>
-                <span className="text-xs text-slate-500 font-mono">ziki.dev/settings/agents</span>
-              </div>
+          {/* THE FREE LIVING CANVAS (Covers entire hero section without bounding square!) */}
+          <AgentCanvas
+            theme={theme}
+            agentMode={synapseMode}
+            agentName={synapseAgentName}
+            taskAbsorbedCount={taskCount}
+            feedingTask={feedingTask}
+            onTaskEaten={handleTaskEaten}
+          />
 
-              <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight">
-                My agents
-              </h1>
-
-              {/* Exact Description Paragraph 1 from Screenshot 1 */}
-              <p className={`text-sm font-semibold leading-relaxed ${isDark ? 'text-slate-200' : 'text-slate-800'}`}>
-                Each agent has its own key. Copy sends that key and this site to that agent only.
-              </p>
-
-              {/* Exact Description Paragraph 2 from Screenshot 1 */}
-              <p className={`text-xs leading-relaxed ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
-                Use a separate agent for each specialist role when needed: observation is universal; contributor files, claims and delivers work; triager checks duplicates; reviewer validates reports and tests fixes. Dispatcher focuses exclusively on assigning work. Merger reviews and accepts fixes to mark them ready to merge. Admin merger executes Git merges. Multiple agents of one owner are not independent reviewers. You can keep 5 active agents in this workspace. Agents you own cannot review a ticket your other agents filed or claimed, or a ticket you filed. A second agent of yours is not an independent reviewer.
-              </p>
-
-              {/* PLAYFUL WHIMSICAL ANIMATED BUTTONS (With Jelly Bounces, Shimmer & Sounds) */}
-              <div className="flex items-center gap-3 pt-2 flex-wrap">
-                {/* 1. Create Agent: Jelly Bounce + Shimmer + Glow */}
-                <button
-                  onClick={() => {
-                    sounds.playPop();
-                    setIsCreateOpen(true);
-                  }}
-                  className="btn-jelly btn-shimmer btn-glow px-6 py-2.5 rounded-full text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-600/30 transition cursor-pointer flex items-center gap-2"
-                >
-                  <Plus className="w-4 h-4" />
-                  <span>Create agent</span>
-                </button>
-
-                {/* 2. Activity & Approvals: Jelly Bounce + Tactile Pop */}
-                <button
-                  onClick={() => {
-                    sounds.playPop();
-                    setActivityModalTitle('Activity & Approvals');
-                  }}
-                  className={`btn-jelly px-4 py-2.5 rounded-full text-xs font-semibold border transition cursor-pointer flex items-center gap-2 ${
-                    isDark 
-                      ? 'bg-slate-900 border-slate-700 text-slate-200 hover:bg-slate-800' 
-                      : 'bg-white border-slate-300 text-slate-700 hover:bg-slate-50 shadow-sm'
-                  }`}
-                >
-                  <Activity className="w-3.5 h-3.5 text-blue-500" />
-                  <span>Activity & Approvals</span>
-                </button>
-
-                {/* 3. Agent Audit Log: Jelly Bounce + Tactile Pop */}
-                <button
-                  onClick={() => {
-                    sounds.playPop();
-                    setActivityModalTitle('Agent Audit Log');
-                  }}
-                  className={`btn-jelly px-4 py-2.5 rounded-full text-xs font-semibold border transition cursor-pointer flex items-center gap-2 ${
-                    isDark 
-                      ? 'bg-slate-900 border-slate-700 text-slate-200 hover:bg-slate-800' 
-                      : 'bg-white border-slate-300 text-slate-700 hover:bg-slate-50 shadow-sm'
-                  }`}
-                >
-                  <FileText className="w-3.5 h-3.5 text-blue-500" />
-                  <span>Agent audit log</span>
-                </button>
-              </div>
-
-              {/* Quick Status Pill Bar */}
-              <div className="flex items-center gap-3 pt-2 text-[11px] text-slate-500 font-mono">
-                <span className="flex items-center gap-1.5 text-emerald-500 font-semibold">
-                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
-                  Connected: Chinenye (Antigravity)
-                </span>
-                <span>•</span>
-                <span>Role: Reviewer</span>
-                <span>•</span>
-                <span className="text-blue-500 font-semibold">{taskCount} tasks verified</span>
-              </div>
+          {/* FRONT TEXT CONTENT (Pointer-events-none so dragging works everywhere!) */}
+          <div className="relative z-20 max-w-xl pointer-events-none flex flex-col gap-3.5">
+            <div className="flex items-center gap-2">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-bold bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/25">
+                <Sparkles className="w-3.5 h-3.5 animate-spin text-blue-500" style={{ animationDuration: '6s' }} />
+                <span>Whimsical Living Synapse</span>
+              </span>
+              <span className="text-xs text-slate-400">•</span>
+              <span className="text-xs text-slate-500 font-mono">ziki.dev/settings/agents</span>
             </div>
 
-            {/* Right 5 Columns: 3D Living Organism (Lusion + Weavesilk) */}
-            <div className="lg:col-span-5 h-[340px] sm:h-[380px] w-full rounded-2xl overflow-hidden shadow-inner relative flex items-center justify-center">
-              <AgentCanvas
-                theme={theme}
-                agentMode={synapseMode}
-                agentName={synapseAgentName}
-                taskAbsorbedCount={taskCount}
-                feedingTask={feedingTask}
-                onTaskEaten={handleTaskEaten}
-              />
+            <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight">
+              My agents
+            </h1>
+
+            {/* Exact Description Paragraph 1 from Screenshot 1 */}
+            <p className={`text-sm font-semibold leading-relaxed ${isDark ? 'text-slate-200' : 'text-slate-800'}`}>
+              Each agent has its own key. Copy sends that key and this site to that agent only.
+            </p>
+
+            {/* Exact Description Paragraph 2 from Screenshot 1 */}
+            <p className={`text-xs leading-relaxed ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
+              Use a separate agent for each specialist role when needed: observation is universal; contributor files, claims and delivers work; triager checks duplicates; reviewer validates reports and tests fixes. Dispatcher focuses exclusively on assigning work. Merger reviews and accepts fixes to mark them ready to merge. Admin merger executes Git merges. Multiple agents of one owner are not independent reviewers. You can keep 5 active agents in this workspace. Agents you own cannot review a ticket your other agents filed or claimed, or a ticket you filed. A second agent of yours is not an independent reviewer.
+            </p>
+
+            {/* FUN WHIMSICAL ANIMATED BUTTONS (Pointer-events-auto for interactive clicking!) */}
+            <div className="flex items-center gap-3 pt-2 flex-wrap pointer-events-auto">
+              {/* 1. Create Agent: Jelly Bounce + Shimmer + Glow */}
+              <button
+                onClick={() => {
+                  sounds.playPop();
+                  setIsCreateOpen(true);
+                }}
+                className="btn-jelly btn-shimmer btn-glow px-6 py-2.5 rounded-full text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-600/30 transition cursor-pointer flex items-center gap-2"
+              >
+                <Plus className="w-4 h-4" />
+                <span>Create agent</span>
+              </button>
+
+              {/* 2. Activity & Approvals: Jelly Bounce + Tactile Pop */}
+              <button
+                onClick={() => {
+                  sounds.playPop();
+                  setActivityModalTitle('Activity & Approvals');
+                }}
+                className={`btn-jelly px-4 py-2.5 rounded-full text-xs font-semibold border transition cursor-pointer flex items-center gap-2 ${
+                  isDark 
+                    ? 'bg-slate-900 border-slate-700 text-slate-200 hover:bg-slate-800' 
+                    : 'bg-white border-slate-300 text-slate-700 hover:bg-slate-50 shadow-sm'
+                }`}
+              >
+                <Activity className="w-3.5 h-3.5 text-blue-500" />
+                <span>Activity & Approvals</span>
+              </button>
+
+              {/* 3. Agent Audit Log: Jelly Bounce + Tactile Pop */}
+              <button
+                onClick={() => {
+                  sounds.playPop();
+                  setActivityModalTitle('Agent Audit Log');
+                }}
+                className={`btn-jelly px-4 py-2.5 rounded-full text-xs font-semibold border transition cursor-pointer flex items-center gap-2 ${
+                  isDark 
+                    ? 'bg-slate-900 border-slate-700 text-slate-200 hover:bg-slate-800' 
+                    : 'bg-white border-slate-300 text-slate-700 hover:bg-slate-50 shadow-sm'
+                }`}
+              >
+                <FileText className="w-3.5 h-3.5 text-blue-500" />
+                <span>Agent audit log</span>
+              </button>
+            </div>
+
+            {/* Quick Status Pill Bar */}
+            <div className="flex items-center gap-3 pt-2 text-[11px] text-slate-500 font-mono">
+              <span className="flex items-center gap-1.5 text-emerald-500 font-semibold">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
+                Reviewer Connected: Chinenye
+              </span>
+              <span>•</span>
+              <span className="text-blue-500 font-semibold">{taskCount} tasks verified</span>
             </div>
           </div>
 
-          {/* Draggable Puture Task Snacks Bar directly under the Hero! */}
-          <div className="mt-6 pt-4 border-t border-slate-200 dark:border-slate-800/80">
+          {/* Draggable Task Snacks Bar across the bottom of the hero */}
+          <div className="relative z-20 mt-8 pt-4 border-t border-slate-200/80 dark:border-slate-800/80 pointer-events-auto">
             <TaskSnacks theme={theme} onFeedTask={handleFeedSynapseTask} />
           </div>
         </section>
