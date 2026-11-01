@@ -7,7 +7,8 @@ import {
   Sparkles, 
   RefreshCw, 
   Trash2, 
-  AlertTriangle 
+  AlertTriangle,
+  X
 } from 'lucide-react';
 import AgentCanvas from './AgentCanvas';
 import TaskSnacks from './TaskSnacks';
@@ -28,6 +29,7 @@ export default function AgentCardItem({
   const [showPreferredAreas, setShowPreferredAreas] = useState(false);
   const [taskCount, setTaskCount] = useState(agent.initialTasks || 14);
   const [feedingTask, setFeedingTask] = useState(null);
+  const [showSyncModal, setShowSyncModal] = useState(false);
 
   const isDark = theme === 'dark';
 
@@ -179,6 +181,20 @@ export default function AgentCardItem({
             >
               Delete
             </button>
+
+            <button
+              onClick={() => {
+                sounds.playPop();
+                setShowSyncModal(true);
+              }}
+              className={`px-4 py-1.5 rounded-full text-xs font-semibold border transition active:scale-95 ${
+                isDark 
+                  ? 'bg-slate-900 border-slate-700 text-slate-200 hover:bg-slate-800' 
+                  : 'bg-white border-slate-200 text-slate-700 hover:bg-slate-100 shadow-sm'
+              }`}
+            >
+              Sync Session
+            </button>
           </div>
 
           {/* Bottom Preferred Areas link from Screenshot 2 */}
@@ -251,6 +267,66 @@ export default function AgentCardItem({
 
           {/* Puture Draggable Task Snacks */}
           <TaskSnacks theme={theme} onFeedTask={handleFeed} />
+        </div>
+      )}
+
+      {/* Sync Session Modal */}
+      {showSyncModal && (
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className={`w-full max-w-md rounded-2xl border p-6 shadow-2xl relative ${
+            isDark ? 'bg-[#0F172A] border-slate-700 text-white' : 'bg-white border-slate-200 text-slate-900'
+          }`}>
+            <button
+              onClick={() => {
+                sounds.playPop();
+                setShowSyncModal(false);
+              }}
+              className="absolute top-4 right-4 p-1.5 rounded-full hover:bg-slate-500/20 text-slate-400 hover:text-white"
+            >
+              <X className="w-4 h-4" />
+            </button>
+
+            <div className="flex items-center gap-2 mb-4">
+              <div className="w-8 h-8 rounded-xl bg-blue-600/20 flex items-center justify-center text-blue-500">
+                <Sparkles className="w-4 h-4" />
+              </div>
+              <div>
+                <h3 className="text-base font-bold">Human-Agent Interaction Sync</h3>
+              </div>
+            </div>
+
+            <div className="space-y-4">
+              <div className={`w-full h-48 rounded-xl border-2 border-dashed flex items-center justify-center ${
+                isDark ? 'border-slate-700 bg-slate-900/50' : 'border-slate-300 bg-slate-50'
+              }`}>
+                <div className="text-center space-y-2">
+                  <div className="mx-auto w-32 h-32 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center">
+                    <div className="w-24 h-24 bg-white rounded grid grid-cols-3 gap-1 p-2">
+                      {[...Array(9)].map((_, i) => (
+                        <div key={i} className={`rounded-sm ${[0,2,4,6,8].includes(i) ? 'bg-slate-900' : 'bg-white'}`}></div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <p className={`text-xs leading-relaxed ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
+                Scan this code with your mobile device or external console to bridge workflows, approve budgets, or manually override this agent's actions.
+              </p>
+
+              <div className="pt-2 flex justify-end">
+                <button
+                  onClick={() => {
+                    sounds.playPop();
+                    setShowSyncModal(false);
+                  }}
+                  className="px-4 py-2 rounded-xl text-xs font-semibold bg-blue-600 hover:bg-blue-500 text-white shadow-md shadow-blue-600/25 transition"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       )}
     </div>
