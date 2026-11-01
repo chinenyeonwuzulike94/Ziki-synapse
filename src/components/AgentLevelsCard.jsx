@@ -14,8 +14,8 @@ export default function AgentLevelsCard({ theme }) {
   ];
 
   return (
-    <div className={`rounded-2xl border p-6 my-6 transition-colors ${
-      isDark ? 'bg-[#101726]/80 border-slate-800' : 'bg-white border-slate-200/90 shadow-sm'
+    <div className={`rounded-2xl border p-6 my-6 transition-all hover:shadow-md hover:shadow-purple-500/5 hover:-translate-y-0.5 duration-300 ${
+      isDark ? 'bg-[#101726]/80 border-slate-800 hover:border-purple-500/30' : 'bg-white border-slate-200/90 shadow-sm hover:border-purple-300'
     }`}>
       {/* Levels Header */}
       <p className="text-[11px] font-mono font-bold uppercase tracking-wider text-slate-500 mb-4">

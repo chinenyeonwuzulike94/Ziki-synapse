@@ -21,10 +21,15 @@ export default function AgentSummaryCards({
   ];
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 relative">
+      {/* Add subtle floating decoration */}
+      <div className="absolute -z-10 opacity-20 pointer-events-none hidden md:block">
+        <div className="absolute top-20 left-10 w-2 h-2 bg-blue-400 rounded-full animate-ping"></div>
+        <div className="absolute top-32 right-20 w-1.5 h-1.5 bg-cyan-400 rounded-full animate-pulse" style={{ animationDelay: '0.5s' }}></div>
+      </div>
       {/* 1. ACTIVE AGENTS CARD from Screenshot 1 */}
-      <div className={`p-5 rounded-2xl border transition-colors ${
-        isDark ? 'bg-[#101726]/70 border-slate-800' : 'bg-white border-slate-200/90 shadow-sm'
+      <div className={`p-5 rounded-2xl border transition-all hover:shadow-md hover:shadow-blue-500/5 hover:-translate-y-0.5 duration-300 ${
+        isDark ? 'bg-[#101726]/70 border-slate-800 hover:border-blue-500/30' : 'bg-white border-slate-200/90 shadow-sm hover:border-blue-300'
       }`}>
         <p className="text-[11px] font-mono font-bold uppercase tracking-wider text-slate-500 mb-2">
           ACTIVE AGENTS
@@ -52,8 +57,8 @@ export default function AgentSummaryCards({
       </div>
 
       {/* 2. ROLES COVERED CARD from Screenshot 1 */}
-      <div className={`p-5 rounded-2xl border transition-colors ${
-        isDark ? 'bg-[#101726]/70 border-slate-800' : 'bg-white border-slate-200/90 shadow-sm'
+      <div className={`p-5 rounded-2xl border transition-all hover:shadow-md hover:shadow-cyan-500/5 hover:-translate-y-0.5 duration-300 ${
+        isDark ? 'bg-[#101726]/70 border-slate-800 hover:border-cyan-500/30' : 'bg-white border-slate-200/90 shadow-sm hover:border-cyan-300'
       }`}>
         <p className="text-[11px] font-mono font-bold uppercase tracking-wider text-slate-500 mb-3">
           ROLES COVERED

@@ -331,10 +331,13 @@ export default function App() {
         />
 
         {/* 5. SEARCH & FILTER BAR from Screenshot 1 */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 my-2">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 my-2 relative">
+          {/* Decorative floating elements */}
+          <div className="absolute -top-3 left-10 w-1.5 h-1.5 bg-blue-400 rounded-full animate-ping opacity-60 hidden lg:block"></div>
+          <div className="absolute -bottom-2 right-32 w-1 h-1 bg-cyan-400 rounded-full animate-pulse opacity-60 hidden lg:block" style={{ animationDelay: '0.7s' }}></div>
           {/* Rounded Pill Search Input */}
-          <div className={`relative max-w-sm w-full rounded-full border px-4 py-2 text-xs flex items-center gap-2 ${
-            isDark ? 'bg-slate-900 border-slate-800 text-white' : 'bg-white border-slate-200 text-slate-900 shadow-sm'
+          <div className={`relative max-w-sm w-full rounded-full border px-4 py-2 text-xs flex items-center gap-2 transition-all hover:shadow-md hover:shadow-blue-500/5 ${
+            isDark ? 'bg-slate-900 border-slate-800 text-white hover:border-blue-500/40' : 'bg-white border-slate-200 text-slate-900 shadow-sm hover:border-blue-300'
           }`}>
             <Search className="w-3.5 h-3.5 text-slate-400" />
             <input
@@ -357,10 +360,10 @@ export default function App() {
                     sounds.playPop();
                     setSelectedFilter(pill);
                   }}
-                  className={`btn-jelly px-4 py-1.5 rounded-full text-xs font-semibold transition cursor-pointer ${
+                  className={`btn-jelly px-4 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer hover:scale-105 ${
                     isSelected
-                      ? (isDark ? 'bg-slate-800 text-white font-bold' : 'bg-slate-900 text-white font-bold')
-                      : (isDark ? 'text-slate-400 hover:text-white' : 'text-slate-600 hover:text-slate-900')
+                      ? (isDark ? 'bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-bold shadow-md shadow-blue-500/30' : 'bg-gradient-to-r from-slate-900 to-slate-800 text-white font-bold shadow-md')
+                      : (isDark ? 'text-slate-400 hover:text-white hover:bg-slate-800/60' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100')
                   }`}
                 >
                   {pill}

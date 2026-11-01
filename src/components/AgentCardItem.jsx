@@ -49,8 +49,8 @@ export default function AgentCardItem({
   };
 
   return (
-    <div className={`rounded-2xl border transition-all mb-4 overflow-hidden ${
-      isDark ? 'bg-[#101726]/80 border-slate-800' : 'bg-white border-slate-200/90 shadow-sm'
+    <div className={`rounded-2xl border transition-all mb-4 overflow-hidden hover:shadow-lg hover:shadow-blue-500/5 hover:scale-[1.01] hover:-translate-y-0.5 duration-300 ${
+      isDark ? 'bg-[#101726]/80 border-slate-800 hover:border-blue-500/30' : 'bg-white border-slate-200/90 shadow-sm hover:border-blue-300'
     }`}>
       {/* Main Agent Row matching Screenshot 2 */}
       <div className="p-6 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
