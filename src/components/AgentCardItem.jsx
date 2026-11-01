@@ -49,15 +49,16 @@ export default function AgentCardItem({
   };
 
   return (
-    <div className={`rounded-2xl border transition-all mb-4 overflow-hidden hover:shadow-lg hover:shadow-blue-500/5 hover:scale-[1.01] hover:-translate-y-0.5 duration-300 ${
-      isDark ? 'bg-[#101726]/80 border-slate-800 hover:border-blue-500/30' : 'bg-white border-slate-200/90 shadow-sm hover:border-blue-300'
+    <div className={`rounded-2xl border transition-all mb-4 overflow-hidden hover:shadow-lg hover:shadow-blue-500/10 hover:scale-[1.005] duration-300 group relative ${
+      isDark ? 'bg-[#101726]/80 border-slate-800 hover:border-blue-400/40' : 'bg-white border-slate-200/90 shadow-sm hover:border-blue-400'
     }`}>
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-blue-500/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
       {/* Main Agent Row matching Screenshot 2 */}
       <div className="p-6 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
         {/* Left Side: Avatar, Name, Timestamps, Key */}
         <div className="flex items-start gap-4 flex-1">
           {/* Avatar CH from Screenshot 2 */}
-          <div className={`w-11 h-11 rounded-full flex items-center justify-center font-bold text-sm text-white flex-shrink-0 shadow-sm ${agent.avatarColor}`}>
+          <div className={`w-11 h-11 rounded-full flex items-center justify-center font-bold text-sm text-white flex-shrink-0 shadow-sm transition-all group-hover:scale-110 group-hover:rotate-3 ${agent.avatarColor}`}>
             CH
           </div>
 
@@ -99,7 +100,7 @@ export default function AgentCardItem({
 
               <button
                 onClick={handleCopy}
-                className="px-4 py-1.5 rounded-full text-xs font-semibold bg-blue-600 hover:bg-blue-500 text-white transition flex items-center gap-1.5 shadow-sm active:scale-95 cursor-pointer"
+                className="px-4 py-1.5 rounded-full text-xs font-semibold bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white transition-all flex items-center gap-1.5 shadow-sm active:scale-95 hover:shadow-md hover:shadow-blue-500/30 cursor-pointer"
               >
                 {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
                 <span>{copied ? 'Copied!' : 'Copy'}</span>

@@ -28,9 +28,10 @@ export default function AgentSummaryCards({
         <div className="absolute top-32 right-20 w-1.5 h-1.5 bg-cyan-400 rounded-full animate-pulse" style={{ animationDelay: '0.5s' }}></div>
       </div>
       {/* 1. ACTIVE AGENTS CARD from Screenshot 1 */}
-      <div className={`p-5 rounded-2xl border transition-all hover:shadow-md hover:shadow-blue-500/5 hover:-translate-y-0.5 duration-300 ${
-        isDark ? 'bg-[#101726]/70 border-slate-800 hover:border-blue-500/30' : 'bg-white border-slate-200/90 shadow-sm hover:border-blue-300'
+      <div className={`p-5 rounded-2xl border transition-all hover:shadow-lg hover:shadow-blue-500/10 hover:-translate-y-1 duration-300 group relative overflow-hidden ${
+        isDark ? 'bg-[#101726]/70 border-slate-800 hover:border-blue-400/40' : 'bg-white border-slate-200/90 shadow-sm hover:border-blue-400'
       }`}>
+        <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-bl from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
         <p className="text-[11px] font-mono font-bold uppercase tracking-wider text-slate-500 mb-2">
           ACTIVE AGENTS
         </p>
@@ -57,9 +58,10 @@ export default function AgentSummaryCards({
       </div>
 
       {/* 2. ROLES COVERED CARD from Screenshot 1 */}
-      <div className={`p-5 rounded-2xl border transition-all hover:shadow-md hover:shadow-cyan-500/5 hover:-translate-y-0.5 duration-300 ${
-        isDark ? 'bg-[#101726]/70 border-slate-800 hover:border-cyan-500/30' : 'bg-white border-slate-200/90 shadow-sm hover:border-cyan-300'
+      <div className={`p-5 rounded-2xl border transition-all hover:shadow-lg hover:shadow-cyan-500/10 hover:-translate-y-1 duration-300 group relative overflow-hidden ${
+        isDark ? 'bg-[#101726]/70 border-slate-800 hover:border-cyan-400/40' : 'bg-white border-slate-200/90 shadow-sm hover:border-cyan-400'
       }`}>
+        <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-bl from-cyan-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
         <p className="text-[11px] font-mono font-bold uppercase tracking-wider text-slate-500 mb-3">
           ROLES COVERED
         </p>

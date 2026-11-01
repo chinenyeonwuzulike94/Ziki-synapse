@@ -360,10 +360,10 @@ export default function App() {
                     sounds.playPop();
                     setSelectedFilter(pill);
                   }}
-                  className={`btn-jelly px-4 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer hover:scale-105 ${
+                  className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer hover:scale-105 ${
                     isSelected
                       ? (isDark ? 'bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-bold shadow-md shadow-blue-500/30' : 'bg-gradient-to-r from-slate-900 to-slate-800 text-white font-bold shadow-md')
-                      : (isDark ? 'text-slate-400 hover:text-white hover:bg-slate-800/60' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100')
+                      : (isDark ? 'text-slate-400 hover:text-white hover:bg-slate-800/70' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100')
                   }`}
                 >
                   {pill}
