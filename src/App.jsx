@@ -186,15 +186,13 @@ export default function App() {
         </a>
 
         {/* ========================================================================= */}
-        {/* 3. HERO SECTION: UNBOUNDED WHIMSICAL LIVING SYNAPSE                       */}
-        {/* (No square box! The agent can be dragged freely across the writeup!)     */}
+        {/* 3. HERO SECTION */}
         {/* ========================================================================= */}
-        <section className={`relative rounded-3xl border shadow-xl transition-all p-6 sm:p-10 overflow-hidden min-h-[400px] flex flex-col justify-between ${
+        <section className={`relative rounded-3xl border shadow-lg transition-all p-6 sm:p-8 overflow-hidden ${
           isDark 
-            ? 'bg-[#101726]/85 border-slate-800 shadow-black/50' 
-            : 'bg-gradient-to-br from-blue-50/70 via-white to-indigo-50/50 border-blue-200/80 shadow-blue-500/5'
+            ? 'bg-[#101726]/80 border-slate-800 shadow-black/40' 
+            : 'bg-white border-slate-200/90 shadow-slate-200/40'
         }`}>
-          {/* THE FREE LIVING CANVAS (Covers entire hero section without bounding square!) */}
           <AgentCanvas
             theme={theme}
             agentMode={synapseMode}
@@ -204,98 +202,103 @@ export default function App() {
             onTaskEaten={handleTaskEaten}
           />
 
-          {/* FRONT TEXT CONTENT */}
-          <div className="relative z-20 max-w-2xl pointer-events-none flex flex-col gap-4">
+          <div className="relative z-20 max-w-2xl pointer-events-none flex flex-col gap-3">
             <div className="flex items-center gap-2 flex-wrap">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-bold bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/25">
-                <Sparkles className="w-3.5 h-3.5 animate-spin text-blue-500" style={{ animationDuration: '6s' }} />
-                <span>Whimsical Living Synapse</span>
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-mono font-semibold bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">
+                <Sparkles className="w-3 h-3" />
+                <span>Agents</span>
               </span>
-              <span className="text-xs text-slate-400 hidden sm:inline">•</span>
-              <span className="text-xs text-slate-500 font-mono">ziki.dev/settings/agents</span>
+              <span className="text-[11px] text-slate-400">•</span>
+              <span className="text-[11px] text-slate-500 font-mono">ziki.dev/settings/agents</span>
             </div>
 
-            <div className="flex flex-col gap-2">
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight">
+            <div className="flex flex-col gap-1.5">
+              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight leading-tight">
                 My agents
               </h1>
 
-              <p className={`text-sm sm:text-base font-semibold leading-relaxed ${isDark ? 'text-slate-200' : 'text-slate-800'}`}>
+              <p className={`text-sm font-semibold leading-relaxed ${isDark ? 'text-slate-200' : 'text-slate-800'}`}>
                 Each agent has its own key. Copying sends that key and this site to that agent only.
               </p>
 
-              <p className={`text-xs sm:text-sm leading-relaxed max-w-xl ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
-                Assign each agent a specific role — Observer, Contributor, Triager, Reviewer, Dispatcher, Merger, or Admin Merger. 
-                You can keep up to 5 active agents. Agents cannot review their own submissions or those of other agents you own.
+              <p className={`text-xs leading-relaxed max-w-lg ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
+                Assign each agent a role — Observer, Contributor, Triager, Reviewer, Dispatcher, Merger, or Admin Merger. Up to 5 active agents. Agents cannot review their own or each other's submissions.
               </p>
             </div>
 
             {/* FUN WHIMSICAL ANIMATED BUTTONS (Pointer-events-auto for interactive clicking!) */}
             <div className="flex items-center gap-3 pt-2 flex-wrap pointer-events-auto">
-              {/* 1. Create Agent: Ultra Whimsical */}
+              {/* 1. Create Agent: Ultra Whimsical - Very Visible */}
               <button
                 onClick={(e) => {
                   sounds.playPop();
                   confetti({
-                    particleCount: 100,
-                    spread: 70,
-                    origin: { y: 0.6 },
-                    colors: ['#2563EB', '#38BDF8', '#10B981', '#F59E0B', '#EC4899'],
+                    particleCount: 150,
+                    spread: 90,
+                    origin: { y: 0.7 },
+                    colors: ['#2563EB', '#38BDF8', '#10B981', '#F59E0B', '#EC4899', '#A855F7'],
                     angle: 90,
+                    ticks: 300,
                   });
                   setIsCreateOpen(true);
                 }}
-                className="btn-jelly btn-shimmer btn-glow btn-bounce px-6 py-2.5 rounded-full text-xs font-bold bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-600 hover:from-blue-500 hover:via-indigo-500 hover:to-blue-500 text-white shadow-xl shadow-blue-600/40 transition-all cursor-pointer flex items-center gap-2 relative overflow-hidden group"
+                className="btn-jelly btn-shimmer btn-glow btn-bounce px-7 py-3 rounded-full text-sm font-extrabold bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-500 hover:via-indigo-500 hover:to-purple-500 text-white shadow-2xl shadow-blue-600/60 transition-all cursor-pointer flex items-center gap-2.5 relative overflow-hidden group animate-pulse"
+                style={{ animationDuration: '2s' }}
               >
-                <Plus className="w-4 h-4 transition-transform group-hover:rotate-90 group-hover:scale-110" />
-                <span className="relative z-10">✨ Create agent</span>
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
+                <Plus className="w-5 h-5 transition-transform group-hover:rotate-180 group-hover:scale-125 relative z-10" />
+                <span className="relative z-10 drop-shadow-lg">✨ CREATE AGENT ✨</span>
               </button>
 
-              {/* 2. Activity & Approvals: Playful with sparkles */}
+              {/* 2. Activity & Approvals: Super Playful */}
               <button
                 onClick={(e) => {
                   sounds.playPop();
                   confetti({
-                    particleCount: 60,
-                    spread: 55,
+                    particleCount: 80,
+                    spread: 70,
                     origin: { x: e.clientX / window.innerWidth, y: e.clientY / window.innerHeight },
-                    colors: ['#38BDF8', '#3B82F6', '#06B6D4'],
-                    ticks: 200,
+                    colors: ['#38BDF8', '#3B82F6', '#06B6D4', '#22D3EE', '#0EA5E9'],
+                    ticks: 250,
+                    startVelocity: 45,
                   });
                   setActivityModalTitle('Activity & Approvals');
                 }}
-                className={`btn-jelly btn-wiggle px-4 py-2.5 rounded-full text-xs font-semibold border transition-all cursor-pointer flex items-center gap-2 hover:scale-105 hover:shadow-lg ${
+                className={`btn-jelly btn-wiggle px-5 py-3 rounded-full text-sm font-bold border-2 transition-all cursor-pointer flex items-center gap-2 hover:scale-110 hover:shadow-2xl relative overflow-hidden group ${
                   isDark 
-                    ? 'bg-slate-900/80 backdrop-blur-sm border-cyan-500/40 text-slate-200 hover:bg-slate-800 hover:border-cyan-400' 
-                    : 'bg-white/90 backdrop-blur-sm border-cyan-300 text-slate-700 hover:bg-cyan-50 hover:border-cyan-400 shadow-sm'
+                    ? 'bg-gradient-to-r from-slate-900/90 to-cyan-900/50 backdrop-blur-sm border-cyan-400 text-cyan-300 hover:from-slate-800 hover:to-cyan-800/60 hover:border-cyan-300' 
+                    : 'bg-gradient-to-r from-white/95 to-cyan-50 backdrop-blur-sm border-cyan-400 text-cyan-700 hover:from-cyan-50 hover:to-cyan-100 hover:border-cyan-500 shadow-lg'
                 }`}
               >
-                <Activity className="w-3.5 h-3.5 text-cyan-500 animate-pulse" />
-                <span>🎉 Activity & Approvals</span>
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-400/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
+                <Activity className="w-4 h-4 text-cyan-500 animate-bounce relative z-10" style={{ animationDuration: '1s' }} />
+                <span className="relative z-10">🎉 ACTIVITY & APPROVALS</span>
               </button>
 
-              {/* 3. Agent Audit Log: Bouncy with stars */}
+              {/* 3. Agent Audit Log: Extra Bouncy */}
               <button
                 onClick={(e) => {
                   sounds.playPop();
                   confetti({
-                    particleCount: 50,
-                    spread: 50,
+                    particleCount: 70,
+                    spread: 65,
                     origin: { x: e.clientX / window.innerWidth, y: e.clientY / window.innerHeight },
-                    colors: ['#A855F7', '#8B5CF6', '#EC4899'],
-                    ticks: 180,
-                    gravity: 0.8,
+                    colors: ['#A855F7', '#8B5CF6', '#EC4899', '#F43F5E', '#D946EF'],
+                    ticks: 220,
+                    startVelocity: 40,
+                    gravity: 0.7,
                   });
                   setActivityModalTitle('Agent Audit Log');
                 }}
-                className={`btn-jelly btn-rubber-band px-4 py-2.5 rounded-full text-xs font-semibold border transition-all cursor-pointer flex items-center gap-2 hover:scale-105 hover:shadow-lg ${
+                className={`btn-jelly btn-rubber-band px-5 py-3 rounded-full text-sm font-bold border-2 transition-all cursor-pointer flex items-center gap-2 hover:scale-110 hover:shadow-2xl relative overflow-hidden group ${
                   isDark 
-                    ? 'bg-slate-900/80 backdrop-blur-sm border-purple-500/40 text-slate-200 hover:bg-slate-800 hover:border-purple-400' 
-                    : 'bg-white/90 backdrop-blur-sm border-purple-300 text-slate-700 hover:bg-purple-50 hover:border-purple-400 shadow-sm'
+                    ? 'bg-gradient-to-r from-slate-900/90 to-purple-900/50 backdrop-blur-sm border-purple-400 text-purple-300 hover:from-slate-800 hover:to-purple-800/60 hover:border-purple-300' 
+                    : 'bg-gradient-to-r from-white/95 to-purple-50 backdrop-blur-sm border-purple-400 text-purple-700 hover:from-purple-50 hover:to-purple-100 hover:border-purple-500 shadow-lg'
                 }`}
               >
-                <FileText className="w-3.5 h-3.5 text-purple-500" />
-                <span>📜 Agent audit log</span>
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-purple-400/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
+                <FileText className="w-4 h-4 text-purple-500 animate-pulse relative z-10" />
+                <span className="relative z-10">📜 AGENT AUDIT LOG</span>
               </button>
             </div>
 
@@ -310,8 +313,7 @@ export default function App() {
             </div>
           </div>
 
-          {/* Draggable Task Snacks Bar across the bottom of the hero */}
-          <div className="relative z-20 mt-8 pt-4 border-t border-slate-200/80 dark:border-slate-800/80 pointer-events-auto">
+          <div className="relative z-20 mt-6 pt-3 border-t border-slate-200/60 dark:border-slate-800/60 pointer-events-auto">
             <TaskSnacks theme={theme} onFeedTask={handleFeedSynapseTask} />
           </div>
         </section>
