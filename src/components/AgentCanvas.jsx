@@ -189,10 +189,18 @@ export default function AgentCanvas({
       ctx.clearRect(0, 0, w, h);
       state.time += palette.speed;
 
-      // Spring physics (Free movement without clipping!)
+      // Autonomous wandering movement
       if (!state.isDragging) {
-        const k = 0.06;
-        const damping = 0.86;
+        if (state.time > 2) {
+          const t = state.time;
+          // Move in a gentle circular/patterned path
+          const centerX = rect.width * 0.75;
+          const centerY = rect.height * 0.5;
+          state.targetX = centerX + Math.sin(t * 0.15) * (rect.width * 0.15) + Math.cos(t * 0.08) * 40;
+          state.targetY = centerY + Math.cos(t * 0.12) * (rect.height * 0.2) + Math.sin(t * 0.1) * 30;
+        }
+        const k = 0.05;
+        const damping = 0.88;
         const ax = (state.targetX - state.x) * k;
         const ay = (state.targetY - state.y) * k;
         state.vx = (state.vx + ax) * damping;
@@ -512,11 +520,7 @@ export default function AgentCanvas({
   return (
     <div 
       ref={containerRef}
-      onMouseDown={handleMouseDown}
-      onMouseMove={handleMouseMove}
-      onMouseUp={handleMouseUp}
-      onMouseLeave={handleMouseLeave}
-      className="absolute inset-0 w-full h-full cursor-grab active:cursor-grabbing pointer-events-auto"
+      className="absolute inset-0 w-full h-full pointer-events-none"
       style={{ zIndex: 10 }}
     >
       {/* NO SQUARE, NO RESTRICTIVE BORDER, NO CLIPPING! */}
@@ -525,20 +529,20 @@ export default function AgentCanvas({
         className="w-full h-full block"
       />
 
-      {/* Subtle Recenter Button in corner */}
+      {/* Recenter Button - minimal */}
       <button
         onClick={(e) => {
           e.stopPropagation();
           recenterAgent();
         }}
         title="Recenter Agent"
-        className={`absolute top-4 right-4 p-2 rounded-full border transition active:scale-95 shadow-sm ${
+        className={`absolute top-4 right-4 p-1.5 rounded-full border transition active:scale-95 shadow-sm pointer-events-auto ${
           isDark 
-            ? 'bg-slate-900/80 border-slate-700 text-slate-300 hover:text-white' 
-            : 'bg-white/80 border-slate-200 text-slate-600 hover:text-black'
+            ? 'bg-slate-900/60 border-slate-700/60 text-slate-400 hover:text-white' 
+            : 'bg-white/60 border-slate-200/60 text-slate-500 hover:text-black'
         }`}
       >
-        <RotateCcw className="w-3.5 h-3.5" />
+        <RotateCcw className="w-3 h-3" />
       </button>
     </div>
   );
