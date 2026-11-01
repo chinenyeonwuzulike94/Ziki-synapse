@@ -193,6 +193,10 @@ export default function App() {
             ? 'bg-[#101726]/80 border-slate-800 shadow-black/40' 
             : 'bg-white border-slate-200/90 shadow-slate-200/40'
         }`}>
+          <div className="absolute top-6 right-12 w-3 h-3 bg-blue-400/60 rounded-full animate-bounce hidden md:block" style={{ animationDuration: '2.5s' }}></div>
+          <div className="absolute top-16 right-24 w-2 h-2 bg-cyan-400/60 rounded-full animate-pulse hidden md:block"></div>
+          <div className="absolute bottom-8 left-16 w-2.5 h-2.5 bg-purple-400/50 rounded-full animate-bounce hidden md:block" style={{ animationDuration: '3s', animationDelay: '0.5s' }}></div>
+          <div className="absolute top-12 left-1/3 w-1.5 h-1.5 bg-pink-400/50 rounded-full animate-pulse hidden lg:block" style={{ animationDelay: '1s' }}></div>
           <AgentCanvas
             theme={theme}
             agentMode={synapseMode}
@@ -204,8 +208,8 @@ export default function App() {
 
           <div className="relative z-20 max-w-2xl pointer-events-none flex flex-col gap-3">
             <div className="flex items-center gap-2 flex-wrap">
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-mono font-semibold bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">
-                <Sparkles className="w-3 h-3" />
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-mono font-semibold bg-gradient-to-r from-blue-500/10 to-cyan-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20 hover:scale-105 transition-transform">
+                <Sparkles className="w-3 h-3 animate-pulse" />
                 <span>Agents</span>
               </span>
               <span className="text-[11px] text-slate-400">•</span>
