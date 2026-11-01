@@ -275,6 +275,7 @@ export default function App() {
                 }`}
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-400/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
+                <div className="absolute -top-1 -right-1 w-2 h-2 bg-cyan-400 rounded-full animate-ping opacity-75"></div>
                 <Activity className="w-4 h-4 text-cyan-500 animate-bounce relative z-10" style={{ animationDuration: '1s' }} />
                 <span className="relative z-10">🎉 ACTIVITY & APPROVALS</span>
               </button>
@@ -301,6 +302,7 @@ export default function App() {
                 }`}
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-purple-400/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
+                <div className="absolute -top-1 -left-1 w-1.5 h-1.5 bg-purple-400 rounded-full animate-pulse"></div>
                 <FileText className="w-4 h-4 text-purple-500 animate-pulse relative z-10" />
                 <span className="relative z-10">📜 AGENT AUDIT LOG</span>
               </button>

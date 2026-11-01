@@ -191,13 +191,19 @@ export default function AgentCanvas({
 
       // Autonomous wandering movement
       if (!state.isDragging) {
-        if (state.time > 2) {
+        if (state.time < 0.5) {
+          // Start a bit higher
+          const defaultX = rect.width > 900 ? rect.width * 0.75 : rect.width * 0.5;
+          const defaultY = rect.height * 0.38;
+          state.targetX = defaultX;
+          state.targetY = defaultY;
+        } else if (state.time > 1.5) {
           const t = state.time;
-          // Move in a gentle circular/patterned path
-          const centerX = rect.width * 0.75;
-          const centerY = rect.height * 0.5;
-          state.targetX = centerX + Math.sin(t * 0.15) * (rect.width * 0.15) + Math.cos(t * 0.08) * 40;
-          state.targetY = centerY + Math.cos(t * 0.12) * (rect.height * 0.2) + Math.sin(t * 0.1) * 30;
+          // Move in a gentle circular/patterned path - higher up
+          const centerX = rect.width > 900 ? rect.width * 0.75 : rect.width * 0.5;
+          const centerY = rect.height * 0.38;
+          state.targetX = centerX + Math.sin(t * 0.15) * (rect.width * 0.12) + Math.cos(t * 0.08) * 30;
+          state.targetY = centerY + Math.cos(t * 0.12) * (rect.height * 0.15) + Math.sin(t * 0.1) * 25;
         }
         const k = 0.05;
         const damping = 0.88;
@@ -213,41 +219,50 @@ export default function AgentCanvas({
         state.stretchY += (1 - state.stretchY) * 0.1;
       }
 
-      // 1. WEAVESILK GENERATIVE RIBBONS (Extends freely across text and whole section!)
-      if (state.mouseActive) {
-        state.mouseHistory.unshift({ x: state.mouseX, y: state.mouseY, time: state.time });
-        if (state.mouseHistory.length > 25) state.mouseHistory.pop();
+      // 1. WEAVESILK GENERATIVE RIBBONS (Auto trail)
+      if (state.time > 0.2) {
+        state.mouseHistory.unshift({ x: state.x, y: state.y, time: state.time });
+        if (state.mouseHistory.length > 40) state.mouseHistory.pop();
+      }
 
+      if (state.mouseHistory.length > 2) {
         ctx.save();
-        for (let r = 0; r < 4; r++) {
+        for (let r = 0; r < 6; r++) {
           ctx.beginPath();
           ctx.strokeStyle = palette.ribbon;
-          ctx.lineWidth = 2.2 - r * 0.35;
+          ctx.lineWidth = 3.2 - r * 0.48;
           ctx.lineCap = 'round';
-          ctx.shadowBlur = isDark ? 16 : 8;
+          ctx.shadowBlur = isDark ? 22 : 14;
           ctx.shadowColor = palette.primary;
+          ctx.globalAlpha = 0.98 - r * 0.15;
 
-          const startX = state.mouseX;
-          const startY = state.mouseY;
-          const endX = state.x;
-          const endY = state.y;
+          let prevX = null;
+          let prevY = null;
+          for (let i = 0; i < state.mouseHistory.length; i += 1) {
+            const p = state.mouseHistory[i];
+            const t = 1 - i / state.mouseHistory.length;
+            const wavePhase = state.time * 3.2 + r * 2.1;
+            const waveAmp = Math.sin(wavePhase) * (45 + r * 16);
 
-          ctx.moveTo(startX, startY);
+            const px = p.x + Math.sin(state.time * 0.9 + i * 0.19 + r) * (t * (30 + r * 14));
+            const py = p.y + Math.cos(state.time * 0.8 + i * 0.16 + r) * (t * (26 + r * 12));
 
-          const midX = (startX + endX) / 2;
-          const midY = (startY + endY) / 2;
-          const wavePhase = state.time * 2 + r * 1.3;
-          const waveAmp = Math.sin(wavePhase) * (25 + r * 10);
+            if (prevX === null) {
+              ctx.moveTo(px, py);
+            } else {
+              const midX = (prevX + px) / 2;
+              const midY = (prevY + py) / 2;
 
-          const perpX = -(endY - startY) * 0.06 * (r % 2 === 0 ? 1 : -1);
-          const perpY = (endX - startX) * 0.06 * (r % 2 === 0 ? 1 : -1);
-
-          ctx.quadraticCurveTo(
-            midX + perpX + waveAmp,
-            midY + perpY + waveAmp,
-            endX,
-            endY
-          );
+              ctx.quadraticCurveTo(
+                midX + Math.sin(wavePhase) * waveAmp * 0.4,
+                midY + Math.cos(wavePhase) * waveAmp * 0.4,
+                px,
+                py
+              );
+            }
+            prevX = px;
+            prevY = py;
+          }
           ctx.stroke();
         }
         ctx.restore();
