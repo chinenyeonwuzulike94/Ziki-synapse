@@ -21,7 +21,7 @@ export default function AgentSummaryCards({
   ];
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
       {/* 1. ACTIVE AGENTS CARD from Screenshot 1 */}
       <div className={`p-5 rounded-2xl border transition-colors ${
         isDark ? 'bg-[#101726]/70 border-slate-800' : 'bg-white border-slate-200/90 shadow-sm'

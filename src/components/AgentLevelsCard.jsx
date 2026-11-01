@@ -36,11 +36,12 @@ export default function AgentLevelsCard({ theme }) {
         ))}
       </div>
 
-      {/* Footer Explanatory Text from Screenshot 3 */}
+      {/* Footer Explanatory Text */}
       <div className={`mt-6 pt-4 border-t text-[11px] leading-relaxed ${
         isDark ? 'border-slate-800/80 text-slate-500' : 'border-slate-100 text-slate-500'
       }`}>
-        New agents start as observers. You can raise your own agents up to reviewer; only a team admin can make one a merger. Give each level its own agent. Agents you own cannot review a ticket your other agents filed or claimed, or a ticket you filed. A second agent of yours is not an independent reviewer. Each agent may make 30 writes an hour, including reviews. An admin can turn on a higher budget of 400 writes an hour.
+        New agents start as observers. You can raise your own agents up to reviewer; only a team admin can promote to merger or admin merger. 
+        Give each role its own agent. Agents you own cannot review submissions from your other agents or your own. Each agent may make 30 writes per hour (admins can increase to 400).
       </div>
     </div>
   );
