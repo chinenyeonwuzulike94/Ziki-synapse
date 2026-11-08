@@ -36,6 +36,7 @@ export default function AgentCanvas({
     mouseHistory: [],
     // Ripple shockwaves
     ripples: [],
+    waveRings: [],
     // Particles
     particles: [],
     // Sparks & floating XP numbers
@@ -307,6 +308,58 @@ export default function AgentCanvas({
         }
       }
 
+      // 3b. WHIMSICAL WAVY RINGS (on amoeba click)
+      for (let i = state.waveRings.length - 1; i >= 0; i--) {
+        const wr = state.waveRings[i];
+        wr.r += wr.speed || 3.2;
+        wr.phase += 0.12;
+        wr.alpha *= 0.965;
+        wr.rot += 0.018;
+
+        const points = 96;
+        const wobble = wr.wobble || 10;
+        const waves = wr.waves || 7;
+        ctx.save();
+        ctx.beginPath();
+        for (let p = 0; p <= points; p++) {
+          const a = (p / points) * Math.PI * 2 + wr.rot;
+          const wave = Math.sin(a * waves + wr.phase) * wobble * (1 - wr.r / (wr.maxR * 1.05));
+          const rr = Math.max(0, wr.r + wave);
+          const px = wr.x + Math.cos(a) * rr;
+          const py = wr.y + Math.sin(a) * rr;
+          if (p === 0) ctx.moveTo(px, py);
+          else ctx.lineTo(px, py);
+        }
+        ctx.closePath();
+        ctx.strokeStyle = wr.color || palette.primary;
+        ctx.lineWidth = wr.lineWidth || 2.4;
+        ctx.globalAlpha = wr.alpha;
+        ctx.shadowBlur = isDark ? 18 : 10;
+        ctx.shadowColor = wr.color || palette.primary;
+        ctx.stroke();
+
+        ctx.beginPath();
+        for (let p = 0; p <= points; p++) {
+          const a = (p / points) * Math.PI * 2 - wr.rot * 0.7;
+          const wave = Math.cos(a * (waves - 1) + wr.phase * 1.1) * wobble * 0.55 * (1 - wr.r / (wr.maxR * 1.05));
+          const rr = Math.max(0, wr.r * 0.82 + wave);
+          const px = wr.x + Math.cos(a) * rr;
+          const py = wr.y + Math.sin(a) * rr;
+          if (p === 0) ctx.moveTo(px, py);
+          else ctx.lineTo(px, py);
+        }
+        ctx.closePath();
+        ctx.strokeStyle = wr.color2 || palette.secondary;
+        ctx.lineWidth = 1.6;
+        ctx.globalAlpha = wr.alpha * 0.7;
+        ctx.stroke();
+        ctx.restore();
+
+        if (wr.alpha < 0.02 || wr.r > wr.maxR) {
+          state.waveRings.splice(i, 1);
+        }
+      }
+
       // 4. LUSION LIVING FLUID AGENT CORE (Freely movable everywhere!)
       ctx.save();
       ctx.translate(state.x, state.y);
@@ -459,6 +512,25 @@ export default function AgentCanvas({
       state.dragStartX = clickX - state.x;
       state.dragStartY = clickY - state.y;
       sounds.playSquish();
+      const palette = getPalette();
+      for (let i = 0; i < 4; i++) {
+        state.waveRings.push({
+          x: state.x,
+          y: state.y,
+          r: state.radius * 0.55 + i * 10,
+          maxR: 190 + i * 55,
+          alpha: 0.95 - i * 0.12,
+          phase: Math.random() * Math.PI * 2,
+          rot: Math.random() * 0.5,
+          speed: 2.4 + i * 0.7,
+          wobble: 9 + i * 3,
+          waves: 6 + (i % 2),
+          lineWidth: 2.8 - i * 0.35,
+          color: i % 2 === 0 ? palette.primary : palette.accent,
+          color2: i % 2 === 0 ? palette.secondary : palette.primary,
+        });
+      }
+      state.ripples.push({ r: state.radius * 0.7, maxR: 260, alpha: 0.85, color: palette.accent });
     } else {
       state.ripples.push({
         r: 10,
@@ -541,7 +613,11 @@ export default function AgentCanvas({
       {/* NO SQUARE, NO RESTRICTIVE BORDER, NO CLIPPING! */}
       <canvas
         ref={canvasRef}
-        className="w-full h-full block"
+        className="w-full h-full block pointer-events-auto cursor-pointer"
+        onMouseDown={handleMouseDown}
+        onMouseMove={handleMouseMove}
+        onMouseUp={handleMouseUp}
+        onMouseLeave={handleMouseLeave}
       />
 
       {/* Recenter Button - minimal */}
